@@ -102,17 +102,8 @@ Este componente muestra información del usuario (nombre, apellido, edad) y boto
 4. Captura de la página desplegada  
     ![Página - captura](./src/assets/page.png)
 
-5. Enlace a la página en GitHub Pages (añadir URL)
+5. Enlace a la página en GitHub Pages:  
+   [Github Pages](https://alexchuquipoma.github.io/icc-ppw-u2-02Fundamentos/)
 
-6. Enlace al repositorio del proyecto (añadir URL)
-
----
-
-## Notas y recomendaciones rápidas
-- Estructura general: bien organizada (H1 para curso, H2 para secciones principales).  
-- Recomendación: usar un solo H1 en el documento (actualmente está correcto).  
-- Verificar que las rutas de las imágenes sean relativas y los archivos existan en ./src/assets.  
-- Añadir ejemplo corto de frontmatter (si presentas componentes) y verificar scripts en package.json (dev, build, preview).  
-- Mejorar textos alt de imágenes para accesibilidad (más descriptivos).
-
-Si quieres, puedo revisar el contenido del archivo src/components/PerfilPage.astro y package.json para confirmar funcionamiento y estructura del proyecto.
+6. Enlace al repositorio del proyecto:  
+   [Repositorio](https://github.com/AlexChuquipoma/icc-ppw-u2-02Fundamentos)
