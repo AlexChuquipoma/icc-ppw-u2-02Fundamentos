@@ -17,10 +17,9 @@
 
 **Juan Fernandez**  
 📧 [jfernandezl6@est.ups.edu.ec](mailto:jfernandezl6@est.ups.edu.ec)  
-💻 GitHub: [Juan06Fernandez](https://github.com/Juan06Fernandez)
+💻 GitHub: [Juan0Fernandez](https://github.com/Juan0Fernandez)
 
 ---
-
 ## Fundamentos de Astro
 
 ### ¿Qué es Astro?
