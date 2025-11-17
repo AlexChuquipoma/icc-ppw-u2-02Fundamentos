@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><title>Home</title><style>nav[data-astro-cid-5blmo7yk]{background-color:#159;padding:1rem;overflow:hidden}a[data-astro-cid-5blmo7yk]{color:#fff;text-decoration:none;margin-right:1rem;font-weight:700}a[data-astro-cid-5blmo7yk].active{color:#ff0;text-decoration:underline}
+.error[data-astro-cid-fosgczaw]{color:red;font-size:.85rem;margin-top:3px;height:18px}
+</style></head> <body> <nav data-astro-cid-5blmo7yk> <a href="/" class data-astro-cid-5blmo7yk> Home </a><a href="/perfilpage" class data-astro-cid-5blmo7yk> Perfil </a><a href="/proyectos" class data-astro-cid-5blmo7yk> Proyectos </a><a href="/proyectos-dos" class data-astro-cid-5blmo7yk> Proyectos Dos </a><a href="/formulariopage" class data-astro-cid-5blmo7yk> Formulario </a> </nav>  <main style="padding: 1rem">  <div class="row" data-astro-cid-fosgczaw> <div class="col" data-astro-cid-fosgczaw> <form id="formUsuario" autocomplete="off" data-astro-cid-fosgczaw> <div class="mb-3" data-astro-cid-fosgczaw> <label class="form-label" data-astro-cid-fosgczaw>Nombre</label> <input id="nombre" type="text" class="form-control" placeholder="Nombre del Usuario" data-astro-cid-fosgczaw> <p id="error-nombre" class="error" data-astro-cid-fosgczaw></p> </div> <div class="mb-3" data-astro-cid-fosgczaw> <label class="form-label" data-astro-cid-fosgczaw>Edad</label> <input id="edad" type="number" class="form-control" placeholder="Edad del Usuario" data-astro-cid-fosgczaw> <p id="error-edad" class="error" data-astro-cid-fosgczaw></p> </div> <div class="mb-3" data-astro-cid-fosgczaw> <label class="form-label" data-astro-cid-fosgczaw>Correo</label> <input id="correo" type="email" class="form-control" placeholder="Correo electrónico" data-astro-cid-fosgczaw> <p id="error-correo" class="error" data-astro-cid-fosgczaw></p> </div> <button type="submit" class="btn btn-primary float-end" data-astro-cid-fosgczaw>Guardar</button> </form> </div> </div>  <script type="module">
+  import { FormUtils } from "./FormUtils.js";  // <-- AQUÍ SÍ
+
+  const form = document.getElementById("formUsuario");
+
+  const nombreInput = document.getElementById("nombre");
+  const edadInput = document.getElementById("edad");
+  const correoInput = document.getElementById("correo");
+
+  const errNombre = document.getElementById("error-nombre");
+  const errEdad = document.getElementById("error-edad");
+  const errCorreo = document.getElementById("error-correo");
+
+  const touched = {
+    nombre: false,
+    edad: false,
+    correo: false,
+  };
+
+  function validate() {
+    const nombre = nombreInput.value.trim();
+    const edad = Number(edadInput.value);
+    const correo = correoInput.value.trim();
+
+    const nombreError = FormUtils.getFieldError(nombre, [
+      FormUtils.required,
+      FormUtils.minLength(3)
+    ]);
+
+    const edadError = FormUtils.getFieldError(edad, [
+      FormUtils.required,
+      FormUtils.min(18)
+    ]);
+
+    const correoError = FormUtils.getFieldError(correo, [
+      FormUtils.required,
+      FormUtils.email
+    ]);
+
+    errNombre.textContent = touched.nombre ? (nombreError || "") : "";
+    errEdad.textContent = touched.edad ? (edadError || "") : "";
+    errCorreo.textContent = touched.correo ? (correoError || "") : "";
+
+    if (nombreError || edadError || correoError) {
+      return false;
+    }
+
+    return true;
+  }
+
+  nombreInput.addEventListener("blur", () => { touched.nombre = true; validate(); });
+  edadInput.addEventListener("blur", () => { touched.edad = true; validate(); });
+  correoInput.addEventListener("blur", () => { touched.correo = true; validate(); });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    FormUtils.markAllTouched(touched);
+
+    const valido = validate();
+    if (!valido) return;
+
+    alert("Formulario valido. Datos enviados correctamente.");
+
+    console.log("Datos del formulario:", {
+      nombre: nombreInput.value.trim(),
+      edad: edadInput.value,
+      correo: correoInput.value.trim(),
+    });
+
+    form.reset();
+
+    touched.nombre = touched.edad = touched.correo = false;
+    errNombre.textContent = "";
+    errEdad.textContent = "";
+    errCorreo.textContent = "";
+  });
+
+</script>  </main> </body></html>

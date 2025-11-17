@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><title>Proyectos Dos</title><style>nav[data-astro-cid-5blmo7yk]{background-color:#159;padding:1rem;overflow:hidden}a[data-astro-cid-5blmo7yk]{color:#fff;text-decoration:none;margin-right:1rem;font-weight:700}a[data-astro-cid-5blmo7yk].active{color:#ff0;text-decoration:underline}
+</style></head> <body> <nav data-astro-cid-5blmo7yk> <a href="/" class data-astro-cid-5blmo7yk> Home </a><a href="/perfilpage" class data-astro-cid-5blmo7yk> Perfil </a><a href="/proyectos" class data-astro-cid-5blmo7yk> Proyectos </a><a href="/proyectos-dos" class data-astro-cid-5blmo7yk> Proyectos Dos </a><a href="/formulariopage" class data-astro-cid-5blmo7yk> Formulario </a> </nav>  <main style="padding: 1rem">  <h1>Listado Proyectos desde Servicio</h1> <ul id="lista-proyectos"> <li>Proyecto A - Descripción</li><li>UNO - UNO</li> </ul> <p>Aquí debería estar un componente que agregue al Servicio</p> <!-- ========== FORMULARIO ========== --> <div style="margin-top: 1rem;"> <h3>Agregar Proyecto</h3> <h4>Proyecto a Agregar</h4> <input id="txtName" type="text" placeholder="Nombre del Proyecto"> <input id="txtDesc" type="text" placeholder="Descripción del Proyecto"> <button id="btnAdd">Agregar</button> <button id="btnDel">Eliminar Primer Proyecto</button> </div> <!-- ========== LÓGICA DEL FORMULARIO ========== --> <script>
+  // ================================
+  //   CARGAR DESDE LOCALSTORAGE
+  // ================================
+  function loadProyectos() {
+    const data = localStorage.getItem("proyectos");
+    return data ? JSON.parse(data) : [
+      { nombre: "Proyecto A", descripcion: "Descripción" },
+      { nombre: "UNO", descripcion: "UNO" }
+    ];
+  }
+
+  // estado inicial
+  let proyectos = loadProyectos();
+
+  // ================================
+  //   GUARDAR EN LOCALSTORAGE
+  // ================================
+  function saveProyectos() {
+    localStorage.setItem("proyectos", JSON.stringify(proyectos));
+  }
+
+  // ================================
+  //   AGREGAR PROYECTO
+  // ================================
+  function addProyecto(p) {
+    proyectos.push(p);
+    saveProyectos();
+    render();
+  }
+
+  // ================================
+  //   ELIMINAR PRIMER PROYECTO
+  // ================================
+  function delFirstProyecto() {
+    proyectos.pop();   
+    saveProyectos();
+    render();
+  }
+
+
+  // ================================
+  //   RENDER DE LISTA
+  // ================================
+  function render() {
+    const ul = document.getElementById("lista-proyectos");
+    ul.innerHTML = proyectos
+      .map(p => `<li>${p.nombre} - ${p.descripcion}</li>`)
+      .join("");
+  }
+
+  // ================================
+  //   MANEJAR BOTONES
+  // ================================
+  window.onload = () => {
+    render();
+
+    const txtName = document.getElementById("txtName");
+    const txtDesc = document.getElementById("txtDesc");
+    const btnAdd = document.getElementById("btnAdd");
+    const btnDel = document.getElementById("btnDel");
+
+    btnAdd.onclick = () => {
+      const nombre = txtName.value.trim();
+      const descripcion = txtDesc.value.trim();
+
+      if (!nombre || !descripcion) return;
+
+      addProyecto({ nombre, descripcion });
+
+      txtName.value = "";
+      txtDesc.value = "";
+    };
+
+    btnDel.onclick = () => {
+      delFirstProyecto();
+    };
+  };
+</script>  </main> </body></html>

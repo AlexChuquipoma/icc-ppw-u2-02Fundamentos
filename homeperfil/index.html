@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><title>Home</title><style>nav[data-astro-cid-5blmo7yk]{background-color:#159;padding:1rem;overflow:hidden}a[data-astro-cid-5blmo7yk]{color:#fff;text-decoration:none;margin-right:1rem;font-weight:700}a[data-astro-cid-5blmo7yk].active{color:#ff0;text-decoration:underline}
+</style></head> <body> <nav data-astro-cid-5blmo7yk> <a href="/" class data-astro-cid-5blmo7yk> Home </a><a href="/perfilpage" class data-astro-cid-5blmo7yk> Perfil </a><a href="/proyectos" class data-astro-cid-5blmo7yk> Proyectos </a><a href="/proyectos-dos" class data-astro-cid-5blmo7yk> Proyectos Dos </a><a href="/formulariopage" class data-astro-cid-5blmo7yk> Formulario </a> </nav>  <main style="padding: 1rem">  <h1>Home</h1> <h2>Fundamentos</h2> <h1>
+Contador (Variable Normal):
+<span id="normal">0</span> </h1> <h1>
+Contador (Signal):
+<span id="signal">0</span> </h1> <button id="inc">Incrementar</button> <button id="dec">Decrementar</button> <button id="reset">Reset</button> <!-- 👇 TODA LA LÓGICA DEL CONTADOR SE EJECUTA EN EL CLIENTE --> <script>
+  let counter = 0;
+  let counterSignal = 0;
+
+  const normalEl = document.getElementById("normal");
+  const signalEl = document.getElementById("signal");
+
+  const incBtn = document.getElementById("inc");
+  const decBtn = document.getElementById("dec");
+  const resetBtn = document.getElementById("reset");
+
+  function render() {
+    normalEl.textContent = counter;
+    signalEl.textContent = counterSignal;
+  }
+
+  // Botones
+  incBtn.onclick = () => {
+    counter++;
+    render();
+  }
+
+  decBtn.onclick = () => {
+    counter--;
+    render();
+  }
+
+  resetBtn.onclick = () => {
+    counter = 0;
+    counterSignal = 0;
+    render();
+  }
+
+  // Autoincremento del signal
+  setInterval(() => {
+    counterSignal++;
+    render();
+  }, 1000);
+
+  // Primera actualización
+  render();
+</script>  </main> </body></html>

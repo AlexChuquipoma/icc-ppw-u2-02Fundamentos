@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><title>Perfil</title><style>nav[data-astro-cid-5blmo7yk]{background-color:#159;padding:1rem;overflow:hidden}a[data-astro-cid-5blmo7yk]{color:#fff;text-decoration:none;margin-right:1rem;font-weight:700}a[data-astro-cid-5blmo7yk].active{color:#ff0;text-decoration:underline}
+</style></head> <body> <nav data-astro-cid-5blmo7yk> <a href="/" class data-astro-cid-5blmo7yk> Home </a><a href="/perfilpage" class data-astro-cid-5blmo7yk> Perfil </a><a href="/proyectos" class data-astro-cid-5blmo7yk> Proyectos </a><a href="/proyectos-dos" class data-astro-cid-5blmo7yk> Proyectos Dos </a><a href="/formulariopage" class data-astro-cid-5blmo7yk> Formulario </a> </nav>  <main style="padding: 1rem">  <div> <h1 id="nombre">Alexander</h1> <dl> <td>Nombre:</td> <dd id="dd-nombre">Alexander</dd> <td>Apellido:</td> <dd id="dd-apellido">Chuquipoma</dd> <td>Edad:</td> <dd id="dd-edad">22</dd> <td>Nombre Completo:</td> <dd id="dd-completo">Alexander Chuquipoma con edad 22 años</dd> <td>Nombre y Apellido (Mayúsculas):</td> <dd id="dd-mayus">ALEXANDER CHUQUIPOMA</dd> </dl> <button onclick="cambiarDatos()">Cambiar datos</button> <button onclick="cambiarEdad()">Cambiar edad a 18</button> <button onclick="resetear()">Reset</button> </div> <script>
+  let nombre = "Alexander";
+  let apellido = "Chuquipoma";
+  let edad = 22;
+
+  function render() {
+    document.getElementById("nombre").innerText = nombre;
+    document.getElementById("dd-nombre").innerText = nombre;
+    document.getElementById("dd-apellido").innerText = apellido;
+    document.getElementById("dd-edad").innerText = edad;
+    document.getElementById("dd-completo").innerText = `${nombre} ${apellido} con edad ${edad} años`;
+    document.getElementById("dd-mayus").innerText = `${nombre.toUpperCase()} ${apellido.toUpperCase()}`;
+  }
+
+  window.cambiarDatos = function () {
+    nombre = "Ana";
+    apellido = "Gonzalez";
+    edad = 25;
+    render();
+  };
+
+  window.cambiarEdad = function () {
+    edad = 18;
+    render();
+  };
+
+  window.resetear = function () {
+    nombre = "Alexander";
+    apellido = "Chuquipoma";
+    edad = 22;
+    render();
+  };
+
+  render();
+</script>  </main> </body></html>

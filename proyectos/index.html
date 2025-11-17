@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><title>Proyectos</title><style>nav[data-astro-cid-5blmo7yk]{background-color:#159;padding:1rem;overflow:hidden}a[data-astro-cid-5blmo7yk]{color:#fff;text-decoration:none;margin-right:1rem;font-weight:700}a[data-astro-cid-5blmo7yk].active{color:#ff0;text-decoration:underline}
+</style></head> <body> <nav data-astro-cid-5blmo7yk> <a href="/" class data-astro-cid-5blmo7yk> Home </a><a href="/perfilpage" class data-astro-cid-5blmo7yk> Perfil </a><a href="/proyectos" class data-astro-cid-5blmo7yk> Proyectos </a><a href="/proyectos-dos" class data-astro-cid-5blmo7yk> Proyectos Dos </a><a href="/formulariopage" class data-astro-cid-5blmo7yk> Formulario </a> </nav>  <main style="padding: 1rem">  <h1>Proyectos</h1> <section> <div> <h3>Agregar Proyecto</h3> <h4>Proyecto a Agregar</h4> <input id="txtName" type="text" placeholder="Nombre del Proyecto"> <input id="txtDescription" type="text" placeholder="Descripción del Proyecto"> <button id="btnAdd">Agregar</button> </div> <div> <h3>Listado</h3> <ul id="listaProyectos"></ul> </div> <div> <h3>Listado de Proyectos</h3> <ul id="listaExtra"></ul> </div> </section> <script>
+  // Estado (igual que signals)
+  let name = "";
+  let description = "";
+
+  let proyectos = [
+    { id: 1, nombre: "Proyecto A", descripcion: "Descripción" }
+  ];
+
+  // Inputs
+  const txtName = document.getElementById("txtName");
+  const txtDescription = document.getElementById("txtDescription");
+  const btnAdd = document.getElementById("btnAdd");
+
+  const lista = document.getElementById("listaProyectos");
+  const listaExtra = document.getElementById("listaExtra");
+
+  function render() {
+    lista.innerHTML = "";
+    listaExtra.innerHTML = "";
+
+    proyectos.forEach(p => {
+      const li = document.createElement("li");
+      li.textContent = `${p.nombre} - ${p.descripcion}`;
+      lista.appendChild(li);
+
+      const li2 = document.createElement("li");
+      li2.textContent = `${p.nombre} - ${p.descripcion}`;
+      listaExtra.appendChild(li2);
+    });
+  }
+
+  txtName.addEventListener("change", (e) => {
+    name = e.target.value;
+  });
+
+  txtDescription.addEventListener("change", (e) => {
+    description = e.target.value;
+  });
+
+  btnAdd.addEventListener("click", () => {
+    const newProyecto = {
+      id: proyectos.length + 1,
+      nombre: name,
+      descripcion: description
+    };
+
+    proyectos.push(newProyecto);
+    name = "";
+    description = "";
+    txtName.value = "";
+    txtDescription.value = "";
+
+    render();
+  });
+
+  // Render inicial
+  render();
+</script>  </main> </body></html>
