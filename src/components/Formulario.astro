@@ -1,0 +1,122 @@
+---
+/* No props needed */
+---
+
+<div class="row">
+  <div class="col">
+
+    <form id="formUsuario" autocomplete="off">
+
+      <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input id="nombre" type="text" class="form-control" placeholder="Nombre del Usuario" />
+        <p id="error-nombre" class="error"></p>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Edad</label>
+        <input id="edad" type="number" class="form-control" placeholder="Edad del Usuario" />
+        <p id="error-edad" class="error"></p>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Correo</label>
+        <input id="correo" type="email" class="form-control" placeholder="Correo electrónico" />
+        <p id="error-correo" class="error"></p>
+      </div>
+
+      <button type="submit" class="btn btn-primary float-end">Guardar</button>
+
+    </form>
+
+  </div>
+</div>
+
+<style>
+  .error {
+    color: red;
+    font-size: 0.85rem;
+    margin-top: 3px;
+    height: 18px;
+  }
+</style>
+
+<script type="module">
+  import { FormUtils } from "./FormUtils.js";  // <-- AQUÍ SÍ
+
+  const form = document.getElementById("formUsuario");
+
+  const nombreInput = document.getElementById("nombre");
+  const edadInput = document.getElementById("edad");
+  const correoInput = document.getElementById("correo");
+
+  const errNombre = document.getElementById("error-nombre");
+  const errEdad = document.getElementById("error-edad");
+  const errCorreo = document.getElementById("error-correo");
+
+  const touched = {
+    nombre: false,
+    edad: false,
+    correo: false,
+  };
+
+  function validate() {
+    const nombre = nombreInput.value.trim();
+    const edad = Number(edadInput.value);
+    const correo = correoInput.value.trim();
+
+    const nombreError = FormUtils.getFieldError(nombre, [
+      FormUtils.required,
+      FormUtils.minLength(3)
+    ]);
+
+    const edadError = FormUtils.getFieldError(edad, [
+      FormUtils.required,
+      FormUtils.min(18)
+    ]);
+
+    const correoError = FormUtils.getFieldError(correo, [
+      FormUtils.required,
+      FormUtils.email
+    ]);
+
+    errNombre.textContent = touched.nombre ? (nombreError || "") : "";
+    errEdad.textContent = touched.edad ? (edadError || "") : "";
+    errCorreo.textContent = touched.correo ? (correoError || "") : "";
+
+    if (nombreError || edadError || correoError) {
+      return false;
+    }
+
+    return true;
+  }
+
+  nombreInput.addEventListener("blur", () => { touched.nombre = true; validate(); });
+  edadInput.addEventListener("blur", () => { touched.edad = true; validate(); });
+  correoInput.addEventListener("blur", () => { touched.correo = true; validate(); });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    FormUtils.markAllTouched(touched);
+
+    const valido = validate();
+    if (!valido) return;
+
+    alert("Formulario valido. Datos enviados correctamente.");
+
+    console.log("Datos del formulario:", {
+      nombre: nombreInput.value.trim(),
+      edad: edadInput.value,
+      correo: correoInput.value.trim(),
+    });
+
+    form.reset();
+
+    touched.nombre = touched.edad = touched.correo = false;
+    errNombre.textContent = "";
+    errEdad.textContent = "";
+    errCorreo.textContent = "";
+  });
+
+</script>

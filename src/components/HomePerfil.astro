@@ -1,0 +1,64 @@
+---
+/* No props needed */
+---
+
+<h1>Home</h1>
+<h2>Fundamentos</h2>
+
+<h1>
+  Contador (Variable Normal): 
+  <span id="normal">0</span>
+</h1>
+
+<h1>
+  Contador (Signal): 
+  <span id="signal">0</span>
+</h1>
+
+<button id="inc">Incrementar</button>
+<button id="dec">Decrementar</button>
+<button id="reset">Reset</button>
+
+<!-- 👇 TODA LA LÓGICA DEL CONTADOR SE EJECUTA EN EL CLIENTE -->
+<script is:raw>
+  let counter = 0;
+  let counterSignal = 0;
+
+  const normalEl = document.getElementById("normal");
+  const signalEl = document.getElementById("signal");
+
+  const incBtn = document.getElementById("inc");
+  const decBtn = document.getElementById("dec");
+  const resetBtn = document.getElementById("reset");
+
+  function render() {
+    normalEl.textContent = counter;
+    signalEl.textContent = counterSignal;
+  }
+
+  // Botones
+  incBtn.onclick = () => {
+    counter++;
+    render();
+  }
+
+  decBtn.onclick = () => {
+    counter--;
+    render();
+  }
+
+  resetBtn.onclick = () => {
+    counter = 0;
+    counterSignal = 0;
+    render();
+  }
+
+  // Autoincremento del signal
+  setInterval(() => {
+    counterSignal++;
+    render();
+  }, 1000);
+
+  // Primera actualización
+  render();
+</script>

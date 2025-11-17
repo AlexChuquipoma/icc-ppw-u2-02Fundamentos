@@ -1,5 +1,13 @@
 ---
+import Navbar from "../components/Navbar.astro";
 const { title = "Mi Página Astro" } = Astro.props;
+const links = [
+
+  { href: "/perfil", label: "Perfil" },
+  { href: "/proyectos", label: "Proyectos" },
+  { href: "/proyectos-dos", label: "Proyectos Dos" },
+  { href: "/formulariopage", label: "Formulario" },
+];
 ---
 
 <html lang="es">
@@ -8,6 +16,10 @@ const { title = "Mi Página Astro" } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <slot />
+    <Navbar />
+
+    <main style="padding: 1rem">
+      <slot />
+    </main>
   </body>
 </html>

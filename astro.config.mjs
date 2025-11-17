@@ -8,5 +8,6 @@ export default defineConfig({
 	// URL pública del sitio (usada para generar rutas absolutas)
 	site: 'https://AlexChuquipoma.github.io/icc-ppw-u2-02Fundamentos/',
 	// Base path cuando se sirve desde https://<user>.github.io/<repo>/
-	base: '/icc-ppw-u2-02Fundamentos/',
+	base: '/',
+
 });
